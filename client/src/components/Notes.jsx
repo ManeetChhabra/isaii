@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { api } from "../axios.config";
+import ReactMarkdown from "react-markdown";
 
 export default function Notes() {
   const [notes, setNotes] = useState([]);
@@ -191,9 +192,54 @@ export default function Notes() {
                     <h3 className="text-xl font-semibold text-[#27dec0] mb-2">
                       {note.title}
                     </h3>
-                    <p className="text-gray-700 whitespace-pre-line mb-4">
+                    <ReactMarkdown
+                      components={{
+                        h1: ({ node, ...props }) => (
+                          <h1
+                            className="text-2xl font-bold mt-4 mb-2 text-[#27dec0]"
+                            {...props}
+                          />
+                        ),
+                        h2: ({ node, ...props }) => (
+                          <h2
+                            className="text-xl font-semibold mt-3 mb-1 text-[#27dec0]"
+                            {...props}
+                          />
+                        ),
+                        p: ({ node, ...props }) => (
+                          <p className="text-gray-700 mb-2" {...props} />
+                        ),
+                        li: ({ node, ...props }) => (
+                          <li
+                            className="list-disc list-inside text-gray-700"
+                            {...props}
+                          />
+                        ),
+                        strong: ({ node, ...props }) => (
+                          <strong
+                            className="font-semibold text-black"
+                            {...props}
+                          />
+                        ),
+                        a: ({ node, ...props }) => (
+                          <a
+                            className="text-blue-600 underline"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            {...props}
+                          />
+                        ),
+                        code: ({ node, ...props }) => (
+                          <code
+                            className="bg-gray-100 text-sm px-1 py-0.5 rounded"
+                            {...props}
+                          />
+                        ),
+                      }}
+                    >
                       {note.content}
-                    </p>
+                    </ReactMarkdown>
+
                     <div className="flex justify-between mt-4 space-x-3">
                       <button
                         className="text-sm text-blue-600 hover:underline"
@@ -215,7 +261,6 @@ export default function Notes() {
                       </button>
                     </div>
                   </div>
-
                 )
               )}
             </div>
